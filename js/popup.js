@@ -38,7 +38,7 @@ function handleStreams(err, streamObj){
 function drawStream(stream){
 	var node = '';
 
-	node += "<b><a href='" + stream.channel.url + "'>"
+	node += "<b><a target='_blank' href='" + stream.channel.url + "'>"
 		+ stream.channel.display_name + "</a></b>";
 
 	node += "<p>Viewers: " + stream.viewers + "</p>";
