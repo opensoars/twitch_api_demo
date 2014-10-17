@@ -1,0 +1,19 @@
+{
+	"manifest_version": 2,
+
+	"name": "twitch_api_demo",
+	"description": "Simple API usage demo",
+	"version": "1.0",
+
+	"browser_action": {
+		"default_icon": "style/img/icon.png",
+		"default_popup": "popup.html"
+	},
+	
+	"permissions": [
+		"storage",
+		"webRequest",
+		"webRequestBlocking",
+		"*://*/"
+	]
+}
