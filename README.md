@@ -12,3 +12,8 @@ Showing a mate how easy it can be to program small 'apps'.
 4. Load unpacked extension
 5. Browse to twitch_api_demo source
 6. Select twitch_api_demo root folder
+
+### Use
+1. Add extension popup button to chrome
+2. Click on extension popup button
+3. Click a stream
