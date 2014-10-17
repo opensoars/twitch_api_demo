@@ -31,7 +31,7 @@ function drawStream(stream){
 	node += "<p>" + stream.channel.status + "</p>";
 	node += "<a target='_blank' href='" + stream.channel.url + "'>"
 		+ "<img src='" + stream.preview.medium + "'></a>";
-	node += "<hr>";
+	node += "<hr><br>";
 
 	container.innerHTML += node;
 
