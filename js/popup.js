@@ -1,5 +1,5 @@
-var apiUrl = 'https://api.twitch.tv/kraken/',
-		streamsUrl = apiUrl + 'streams?game=League+of+Legends&limit=20'
+var API_URL = 'https://api.twitch.tv/kraken/',
+		STREAMS_URL = API_URL + 'streams?game=League+of+Legends&limit=20'
 
 
 var container = document.getElementById('streamsContainer');
@@ -17,7 +17,7 @@ function getStreams(cb){
 
 	req.onabort = function (){ return cb('request aborted'); };
 
-	req.open('GET', streamsUrl, true);
+	req.open('GET', STREAMS_URL, true);
 	req.send();
 }
 
