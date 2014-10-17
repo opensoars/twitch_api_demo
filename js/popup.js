@@ -5,6 +5,8 @@ var container = document.getElementById('streamsContainer');
 
 function getStreams(cb){
 
+	container.innerHTML = 'Getting streams';
+
 	var req = new XMLHttpRequest();
 
 	req.onreadystatechange = function (){
@@ -23,9 +25,13 @@ function getStreams(cb){
 function drawStream(stream){
 	var node = '';
 
-
-	node += stream.viewers;
-	node += '<hr>';
+	node += "<b><a href='" + stream.channel.url + "'>"
+		+ stream.channel.display_name + "</a></b>";
+	node += "<p>Viewers: " + stream.viewers + "</p>";
+	node += "<p>" + stream.channel.status + "</p>";
+	node += "<a target='_blank' href='" + stream.channel.url + "'>"
+		+ "<img src='" + stream.preview.medium + "'></a>";
+	node += "<hr>";
 
 	container.innerHTML += node;
 
@@ -33,10 +39,16 @@ function drawStream(stream){
 
 function handleStreams(err, streamObj){
 
-	if(err) return container.innerHTML = 'Could not GET streams!';
+	if(err) return container.innerHTML = 'Could not GET streams, '
+		+ 're-open extension to retry';
 
 	container.innerHTML = '';
 	streamObj.streams.forEach(drawStream);
+
+	// Stupid scrollbar invis re-hack
+	window.scrollTo(0,0);
+
+
 
 }
 
