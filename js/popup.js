@@ -1,10 +1,17 @@
+// Globals
 var API_URL = 'https://api.twitch.tv/kraken/',
-		STREAMS_URL = API_URL + 'streams?game=League+of+Legends&limit=20'
+		LIMIT = 15,
+		STREAMS_URL = API_URL + 'streams?game=League+of+Legends&limit=' + LIMIT;
 
-
+// DOM Globals
 var container = document.getElementById('streamsContainer');
 
 
+/**
+ * Gets stream JSON data
+ * 
+ * @param cb {function}  To be called on finish/abort
+ */
 function getStreams(cb){
 
 	container.innerHTML = 'Getting streams';
@@ -21,7 +28,13 @@ function getStreams(cb){
 	req.send();
 }
 
-
+/**
+ * Handles the streamObj
+ * Calls drawStream for each stream
+ *
+ * @param err       {string}  Error description
+ * @param streamObj {object}  Contains all stream info
+ */
 function handleStreams(err, streamObj){
 
 	if(err) return container.innerHTML = 'Could not GET streams, '
@@ -34,7 +47,11 @@ function handleStreams(err, streamObj){
 	window.scrollTo(0,0);
 }
 
-
+/**
+ * Draws stream info to container HTML
+ *
+ * @param stream {object}  Holds data for a single stream
+ */
 function drawStream(stream){
 	var node = '';
 
@@ -53,5 +70,14 @@ function drawStream(stream){
 	container.innerHTML += node;
 }
 
+/**
+ * Initialize
+ * Calls getStreams and passes the handleStreams function
+ * as a callback argument
+ */
+function init(){
+	getStreams(handleStreams);
+}
 
-getStreams(handleStreams);
+init();
+
