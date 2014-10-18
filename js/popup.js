@@ -85,12 +85,8 @@ function run(){
 run();
 
 
-function onRefreshClick(){
-	run();
-}
+function onRefreshClick(){ run(); }
 
 refreshBtn.addEventListener('click', onRefreshClick, true);
-
-
 
 }());
