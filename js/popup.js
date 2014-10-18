@@ -6,7 +6,8 @@ var API_URL = 'https://api.twitch.tv/kraken/',
 		STREAMS_URL = API_URL + 'streams?game=League+of+Legends&limit=' + LIMIT;
 
 // DOM
-var container = document.getElementById('streamsContainer');
+var container = document.getElementById('streamsContainer'),
+		refreshBtn = document.getElementById('refreshBtn');
 
 
 /**
@@ -77,11 +78,19 @@ function drawStream(stream){
  * Calls getStreams and passes the handleStreams function
  * as a callback argument
  */
-function init(){
+function run(){
 	getStreams(handleStreams);
 }
 
-init();
+run();
+
+
+function onRefreshClick(){
+	run();
+}
+
+refreshBtn.addEventListener('click', onRefreshClick, true);
+
 
 
 }());
