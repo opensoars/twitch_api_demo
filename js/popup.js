@@ -1,9 +1,11 @@
-// Globals
+(function (){
+
+// Constants
 var API_URL = 'https://api.twitch.tv/kraken/',
 		LIMIT = 15,
 		STREAMS_URL = API_URL + 'streams?game=League+of+Legends&limit=' + LIMIT;
 
-// DOM Globals
+// DOM
 var container = document.getElementById('streamsContainer');
 
 
@@ -81,3 +83,5 @@ function init(){
 
 init();
 
+
+}());
