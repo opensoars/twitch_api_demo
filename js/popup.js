@@ -1,34 +1,37 @@
-(function (){
-
 // Constants
 var API_URL = 'https://api.twitch.tv/kraken/',
-		LIMIT = 15,
-		STREAMS_URL = API_URL + 'streams?game=League+of+Legends&limit=' + LIMIT;
+    LMT = 15,
+    STREAMS_URL = API_URL + 'streams?game=League+of+Legends&limit=' + LMT;
+
 
 // DOM
 var container = document.getElementById('streamsContainer'),
-		refreshBtn = document.getElementById('refreshBtn');
+    refreshBtn = document.getElementById('refreshBtn');
 
 
 /**
  * Gets stream JSON data
  * 
- * @param cb {function}  To be called on finish/abort
+ * @param  cb       {function}  To be called on finish/abort
+ * @return response {object} response in json
  */
 function getStreams(cb){
 
-	container.innerHTML = 'Getting streams';
+  container.innerHTML = 'Getting streams';
 
-	var req = new XMLHttpRequest();
+  var req = new XMLHttpRequest();
 
-	req.onreadystatechange = function (){
-		if(this.readyState === 4) return cb(null, JSON.parse(this.response));
-	};
+  req.onreadystatechange = function (){
+    if(this.readyState === 4)
+      return cb(null, JSON.parse(this.response));
+  };
 
-	req.onabort = function (){ return cb('request aborted'); };
+  req.onabort = function (){
+    return cb('request aborted');
+  };
 
-	req.open('GET', STREAMS_URL, true);
-	req.send();
+  req.open('GET', STREAMS_URL, true);
+  req.send();
 }
 
 /**
@@ -40,14 +43,14 @@ function getStreams(cb){
  */
 function handleStreams(err, streamObj){
 
-	if(err) return container.innerHTML = 'Could not GET streams, '
-		+ 're-open extension to retry';
+  if(err) return container.innerHTML = 'Could not GET streams, '
+    + 're-open extension to retry';
 
-	container.innerHTML = '';
-	streamObj.streams.forEach(drawStream);
+  container.innerHTML = '';
+  streamObj.streams.forEach(drawStream);
 
-	// Stupid scrollbar invis re-hack
-	window.scrollTo(0,0);
+  // Stupid scrollbar invis fix
+  window.scrollTo(0,0);
 }
 
 /**
@@ -56,22 +59,23 @@ function handleStreams(err, streamObj){
  * @param stream {object}  Holds data for a single stream
  */
 function drawStream(stream){
-	var node = '';
+  var node = '';
 
-	node += "<b><a target='_blank' href='" + stream.channel.url + "'>"
-		+ stream.channel.display_name + "</a></b>";
+  node += "<b><a target='_blank' href='" + stream.channel.url + "'>"
+    + stream.channel.display_name + "</a></b>";
 
-	node += "<p>Viewers: " + stream.viewers + "</p>";
+  node += "<p>Viewers: " + stream.viewers + "</p>";
 
-	node += "<p>" + stream.channel.status + "</p>";
+  node += "<p>" + stream.channel.status + "</p>";
 
-	node += "<a target='_blank' href='" + stream.channel.url + "'>"
-		+ "<img src='" + stream.preview.medium + "'></a>";
+  node += "<a target='_blank' href='" + stream.channel.url + "'>"
+    + "<img src='" + stream.preview.medium + "'></a>";
 
-	node += "<hr><br>";
+  node += "<hr><br>";
 
-	container.innerHTML += node;
+  container.innerHTML += node;
 }
+
 
 /**
  * Initialize
@@ -79,14 +83,11 @@ function drawStream(stream){
  * as a callback argument
  */
 function run(){
-	getStreams(handleStreams);
+  getStreams(handleStreams);
 }
 
 run();
 
 
 function onRefreshClick(){ run(); }
-
 refreshBtn.addEventListener('click', onRefreshClick, true);
-
-}());
